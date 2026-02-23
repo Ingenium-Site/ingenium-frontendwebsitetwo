@@ -9,7 +9,7 @@ import SingleServiceSection from "../../Components/Services/singleservice";
 function SingleServicePage(){
     return(
         <>
-            <HeadTitle title="Single Service - Marko - Digital Marketing Agency" />
+            <HeadTitle title="Service Details - INGENIUM" />
             <BannerInnerSection title="Social Media Marketing" currentPage="Services Details" />
             <SingleServiceSection />
             <TestimonialSection />

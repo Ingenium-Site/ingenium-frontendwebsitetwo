@@ -69,7 +69,7 @@ function Sidebar() {
         <div ref={sidebarRef} className="sidebar">
             <div className="sidebar-header">
                 <div className="logo">
-                    <img src="/assets/images/marko-logo.png" className="site-logo img-fluid logo" alt="Logo" />
+                    <img src="/assets/images/ingenium-logo.jpeg" className="site-logo img-fluid logo" alt="INGENIUM Logo" />
                 </div>
                 <button className="close-btn"><span>X</span></button>
             </div>

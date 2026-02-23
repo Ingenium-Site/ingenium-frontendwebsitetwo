@@ -5,7 +5,7 @@ import NotFoundSection from "../../Components/NotFound/notfound";
 function NotFoundPage(){
     return(
         <>
-            <HeadTitle title="Error 404 - Marko - Digital Marketing Agency" />
+            <HeadTitle title="Error 404 - INGENIUM" />
             <NotFoundSection />
         </>
     );

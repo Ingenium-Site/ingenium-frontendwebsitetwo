@@ -6,7 +6,7 @@ import BlogPostSection from "../../Components/Blog/SinglePost";
 function SinglePostPage(){
     return(
         <>
-            <HeadTitle title="Single Post - Marko - Digital Marketing Agency" />
+            <HeadTitle title="Post - INGENIUM" />
             <BannerInnerSection title="Growth Strategies for Digital Businesse" currentPage="Single Post" />
             <BlogPostSection />
 

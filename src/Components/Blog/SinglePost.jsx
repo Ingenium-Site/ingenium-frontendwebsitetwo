@@ -36,7 +36,7 @@ const BlogPostSection = () => {
                         </div>
                         <div className="cta-service-banner">
                             <div className="spacer"></div>
-                            <h3 className="title-heading">Transform Your Business with Marko!</h3>
+                            <h3 className="title-heading">Build wisely with INGENIUM</h3>
                             <p>
                                 Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!
                             </p>
@@ -51,7 +51,7 @@ const BlogPostSection = () => {
                     <div className="d-flex flex-column gspace-2">
                         <div className="post-image">
                             <img
-                            src="/assets/images/young-people-working-in-the-grunge-office-V55NNM4-1024x683.jpg"
+                            src="/assets/images/dummy-img-600x400.jpg"
                             alt="Recent Post"
                             className="img-fluid"
                             />

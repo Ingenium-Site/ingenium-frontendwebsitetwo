@@ -8,7 +8,7 @@ import ChooseUsSection from "../../Components/ChooseUs/choose";
 function PricingPage(){
     return(
         <>
-            <HeadTitle title="Pricing Plan - Marko - Digital Marketing Agency" />
+            <HeadTitle title="Pricing - INGENIUM" />
             <BannerInnerSection title="Pricing Plan" currentPage="Pricing Plan" />
             <PricingPlanSection />
             <DigitalProcessSection />

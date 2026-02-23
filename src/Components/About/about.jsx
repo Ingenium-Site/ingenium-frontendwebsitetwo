@@ -1,10 +1,7 @@
 import React from "react";
-import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
-import useCounterOnScroll from "../Hooks/useCounterOnScroll";
+import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 
 function AboutSection(){
-    useAnimateOnScroll();
-    useCounterOnScroll();
 
     return(
         <div className="section">
@@ -12,26 +9,28 @@ function AboutSection(){
                 <div className="d-flex flex-column flex-lg-row gspace-5">
                     <div className="about-img-layout">
                         <div className="image-container about-img">
+                            <AnimateOnScroll animation="fadeInUp" speed="normal">
                             <img
-                                src="/assets/images/working-job-career-casual-showing-SJZWF3N-1024x737.jpg"
+                                src="/assets/images/dummy-img-600x400.jpg"
                                 alt="About Us Image"
-                                className="img-fluid animate-box animated animate__animated"
-                                data-animate="animate__fadeInUp"
+                                className="img-fluid"
                             />
+                            </AnimateOnScroll>
                         
                             <div className="about-layout">
                                 <div className="d-flex flex-column">
                                     <div className="card-about-wrapper">
-                                        <div
-                                            className="card card-about animate-box animated animate__animated"
-                                            data-animate="animate__fadeInDown"
-                                            >
-                                            <div className="d-flex flex-row align-items-center">
-                                                <span className="counter" data-target="21"></span>
-                                                <span className="counter-detail">+</span>
+                                        <AnimateOnScroll animation="fadeInDown" speed="normal">
+                                            <div
+                                                className="card card-about"
+                                                >
+                                                <div className="d-flex flex-row align-items-center">
+                                                    <span className="counter" data-target="21"></span>
+                                                    <span className="counter-detail">+</span>
+                                                </div>
+                                                <h6>Years of experience in strategy, creativity, and execution</h6>
                                             </div>
-                                            <h6>Years of Experience on Digital Marketing Services</h6>
-                                        </div>
+                                        </AnimateOnScroll>
                                     </div>
                                 <div className="about-spacer"></div>
                                 </div>
@@ -41,45 +40,44 @@ function AboutSection(){
                     </div>
                     <div className="about-title">
                         <div className="d-flex flex-column gspace-2">
-                            <div
-                                className="sub-heading animate-box animated animate__animated"
-                                data-animate="animate__fadeInRight"
-                            >
-                                <i className="fa-regular fa-circle-dot"></i>
-                                <span>About Us</span>
-                            </div>
+                            <AnimateOnScroll animation="fadeInRight" speed="normal">
+                                <div
+                                    className="sub-heading"
+                                >
+                                    <i className="fa-regular fa-circle-dot"></i>
+                                    <span>About Us</span>
+                                </div>
+                            </AnimateOnScroll>
 
-                            <h2
-                                className="title-heading animate-box animated animate__animated"
-                                data-animate="animate__fadeInRight"
-                            >
-                                Who We Are & What Drives Us
-                            </h2>
+                            <AnimateOnScroll animation="fadeInRight" speed="normal">
+                                <h2 className="title-heading">What INGENIUM Is</h2>
+                            </AnimateOnScroll>
 
                             <p>
-                                At Marko, we specialize in crafting innovative digital marketing strategies
-                                that drive real business growth. Our about ensures your brand stays ahead
-                                in the competitive digital landscape.
+                                INGENIUM is a strategy and creative firm built on thinking that leads to durable execution.
+                                The name is drawn from an old Italian and Latin root describing natural intelligence,
+                                inventive capability, and the disciplined judgment required to build wisely.
                             </p>
                             <p>
-                                Get to know the passionate team behind the strategies, the values that
-                                guide us, and the mission that fuels our growth.
+                                We are grounded in historical intelligence—how enduring systems, institutions, and ideas
+                                have been built over time. We believe the strongest solutions emerge from understanding
+                                first, structure second, and execution that respects both.
                             </p>
 
                             <div className="d-flex flex-column flex-md-row gspace-1 gspace-md-5">
                                 <div className="about-list">
                                     <ul className="check-list">
-                                        <li><a href="./single_services">PPC & Paid Ads</a></li>
-                                        <li><a href="./single_services">Brand Strategy</a></li>
-                                        <li><a href="./single_services">Conversion Optimization</a></li>
+                                        <li><a href="./single_services">Insight & Research</a></li>
+                                        <li><a href="./single_services">Strategy & Positioning</a></li>
+                                        <li><a href="./single_services">Brand & System Design</a></li>
                                     </ul>
                                 </div>
 
                                 <div className="about-list">
                                     <ul className="check-list">
-                                        <li><a href="./single_services">Performance Marketing</a></li>
-                                        <li><a href="./single_services">Social Media Growth</a></li>
-                                        <li><a href="./single_services">Content Marketing</a></li>
+                                        <li><a href="./single_services">Creative Direction</a></li>
+                                        <li><a href="./single_services">Emerging Technology</a></li>
+                                        <li><a href="./single_services">Durable Execution</a></li>
                                     </ul>
                                 </div>
                             </div>

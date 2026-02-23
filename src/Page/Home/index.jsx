@@ -17,7 +17,7 @@ import BlogSection from "../../Components/Blog/blog";
 function HomePage(){
     return(
         <>
-            <HeadTitle title="Home - Marko - Digital Marketing Agency" />
+            <HeadTitle title="Home - INGENIUM" />
             <BannerHomeSection />
             <ExpertiseSection />
             <PartnershipSection />

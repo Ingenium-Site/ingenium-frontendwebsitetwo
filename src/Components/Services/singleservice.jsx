@@ -1,16 +1,15 @@
-import React, { use } from "react";
+import React from "react";
 import { services } from "../../Data/ServiceData";
-import useAnimateOnScroll from "../Hooks/useAnimateOnScroll";
+import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 
 const SingleServiceSection = () => {
-    useAnimateOnScroll();
     return (
         <div className="section pb-0">
             <div className="hero-container">
                 <div className="d-flex flex-column gspace-5">
                     <div className="image-container">
                         <img
-                        src="/assets/images/collaborative-process-of-multicultural-skilled-peo-5EHBQRG-1024x683.jpg"
+                        src="/assets/images/dummy-img-600x400.jpg"
                         alt="Service Image"
                         className="single-service-img"
                         />
@@ -19,19 +18,17 @@ const SingleServiceSection = () => {
                                 <div className="single-service-spacer"></div>
                                 <div className="single-service-title-wrapper">
                                     <div className="single-service-title">
-                                        <div
-                                        className="sub-heading animate-box animated slow animate__animated"
-                                        data-animate="animate__fadeInRight"
-                                        >
-                                        <i className="fa-regular fa-circle-dot"></i>
-                                            <span>Our Expertise</span>
-                                        </div>
-                                        <h3
-                                        className="title-heading animate-box animated animate__animated"
-                                        data-animate="animate__fadeInRight"
-                                        >
-                                        Boost Your Brand with Strategic Social Media Marketing
-                                        </h3>
+                                        <AnimateOnScroll animation="fadeInRight" speed="slow">
+                                            <div className="sub-heading">
+                                                <i className="fa-regular fa-circle-dot"></i>
+                                                <span>Our Expertise</span>
+                                            </div>
+                                        </AnimateOnScroll>
+                                        <AnimateOnScroll animation="fadeInRight" speed="normal">
+                                            <h3 className="title-heading">
+                                                Boost Your Brand with Strategic Social Media Marketing
+                                            </h3>
+                                        </AnimateOnScroll>
                                         <p>
                                             Maximize engagement, build loyal communities, and drive conversions across all major platforms lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
                                         </p>
@@ -47,13 +44,13 @@ const SingleServiceSection = () => {
                             <div className="d-flex flex-column gspace-2">
                                 <h4>Overview</h4>
                                 <p>
-                                    At Marko, we help brands grow through custom-tailored social media marketing strategies that connect with your audience. From content creation to campaign optimization, we make sure your presence on platforms like Instagram, Facebook, LinkedIn, and TikTok stands out. Whether you’re launching a new brand or scaling an existing one, our experts turn social media into a powerful growth engine.
+                                    At INGENIUM, we help brands grow through custom-tailored social media marketing strategies that connect with your audience. From content creation to campaign optimization, we make sure your presence on platforms like Instagram, Facebook, LinkedIn, and TikTok stands out. Whether you’re launching a new brand or scaling an existing one, our experts turn social media into a powerful growth engine.
                                 </p>
                                 <div className="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
                                     <div className="col">
                                         <div className="image-container">
                                         <img
-                                            src="/assets/images/young-business-team-working-EH8KQ2R-1024x683.jpg"
+                                            src="/assets/images/dummy-img-600x400.jpg"
                                             alt="Service Image"
                                             className="img-fluid"
                                         />
@@ -62,7 +59,7 @@ const SingleServiceSection = () => {
                                     <div className="col">
                                         <div className="image-container">
                                         <img
-                                            src="/assets/images/business-team-working-in-a-start-up-office-8ENVVX5-1024x683.jpg"
+                                            src="/assets/images/dummy-img-600x400.jpg"
                                             alt="Service Image"
                                             className="img-fluid"
                                         />
@@ -95,7 +92,7 @@ const SingleServiceSection = () => {
                                     </div>
                                 </div>
 
-                                <h4>Why Choose Marko for Social Media Marketing?</h4>
+                                <h4>Why Choose INGENIUM for Social Media Marketing?</h4>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mollis ac odio et efficitur. Proin velit neque, sollicitudin nec purus eu, suscipit feugiat tellus.
                                 </p>
@@ -157,7 +154,7 @@ const SingleServiceSection = () => {
                                 </div>
                                 <div className="cta-service-banner">
                                     <div className="spacer"></div>
-                                    <h3 className="title-heading">Transform Your Business with Marko!</h3>
+                                    <h3 className="title-heading">Transform Your Business with INGENIUM!</h3>
                                     <p>
                                         Take your digital marketing to the next level with data-driven strategies and innovative solutions. Let's create something amazing together!
                                     </p>

@@ -53,7 +53,7 @@ const ContactSection = () => {
                                 </div>
                                 <div className="d-grid">
                                     <span>Office Address</span>
-                                    <h5>Marko HQ - 902 Digital Lane, San Francisco, CA 94110, USA</h5>
+                                    <h5>INGENIUM</h5>
                                 </div>
                             </div>
                         </div>

@@ -11,12 +11,19 @@ const Footer = () => {
                             <div className="col col-lg-4">
                                 <div className="footer-logo-container">
                                     <div className="logo-container-footer">
-                                    <img src="/assets/images/marko-logo.png" alt="Logo" className="site-logo img-fluid" />
+                                    <img src="/assets/images/ingenium-logo.jpeg" alt="INGENIUM Logo" className="site-logo img-fluid" />
                                     </div>
                                     <h4>Driving Digital Growth with Innovation & Strategy</h4>
                                     <p>
-                                    Lorem ipsum dolor si consectetur adipiscing elit ut elit tellus luctus nec ullamcorper mattis pulvinar dapibus leo.
-                                    </p>
+                                  Dream Wild is our working principle. It reflects our belief that expansive thinking and disciplined execution
+              belong together. Creative and strategic ideas are examined thoroughly and shaped into clear direction. <br/><br/>
+               <p>
+              At Ingenium, imagination is given room to develop, supported by the discipline required to carry it forward.
+              It informs how our teams approach complex challenges and assures our clients that bold ideas translate into
+              measurable progress.
+            </p>
+                                        </p>
+                                        
                                 </div>
                             </div>
 
@@ -89,7 +96,7 @@ const Footer = () => {
                     </div>
 
                     <div className="copyright-container">
-                        <span className="copyright">© 2025 Marko. Fox Creation All Rights Reserved.</span>
+                        <span className="copyright">© 2025 INGENIUM. All rights reserved.</span>
                         <div className="d-flex flex-row gspace-2">
                             <a href="#" className="legal-link">Terms of Service</a>
                             <a href="#" className="legal-link">Privacy Policy</a>
