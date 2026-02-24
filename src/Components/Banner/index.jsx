@@ -210,10 +210,10 @@ function BannerHomeSection() {
                                                 </div>
                                             </a>
                                             <div className="banner-reviewer">
-                                                <div className="detail">
-                                                    <h3>In <span><InWordMorph /></span></h3>
-                                                </div>
+                                            <div className="detail">
+                                                <h3 style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>In<span><InWordMorph /></span></h3>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </AnimateOnScroll>

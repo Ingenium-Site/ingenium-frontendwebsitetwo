@@ -1,11 +1,16 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
 import { partnerships } from "../../Data/PartnershipData";
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore from 'swiper';
+import { Autoplay } from 'swiper/modules';
 import "swiper/css";
 
-const PartnershipSection = () => {
+// Install the required modules
+SwiperCore.use([Autoplay]);
 
+const PartnershipSection = () => {
     return (
         <div className="section-partner">
             <div className="hero-container">
@@ -39,23 +44,42 @@ const PartnershipSection = () => {
                                     slidesPerView={6}
                                     spaceBetween={20}
                                     loop={true}
+                                    modules={[Autoplay]}
                                     autoplay={{
-                                        delay: 5000,
+                                        delay: 3000,
                                         disableOnInteraction: false,
+                                        pauseOnMouseEnter: true,
                                     }}
                                     breakpoints={{
-                                    230: { slidesPerView: 3 },
-                                    767: { slidesPerView: 4 },
-                                    1024: { slidesPerView: 6 },
+                                        230: { slidesPerView: 3 },
+                                        767: { slidesPerView: 4 },
+                                        1024: { slidesPerView: 6 },
                                     }}
                                     className="swiperPartner"
+                                    grabCursor={true}
                                 >
-                                    {partnerships.concat(partnerships).map((partner) => (
-                                    <SwiperSlide key={partner.id + Math.random()}>
-                                        <div className="partner-slide">
-                                            <img src={partner.logo} alt="Client" className="partner-logo img-fluid" />
-                                        </div>
-                                    </SwiperSlide>
+                                    {partnerships.map((partner, index) => (
+                                        <SwiperSlide key={`partner-${partner.id}-${index}`}>
+                                            <div className="partner-slide">
+                                                <img 
+                                                    src={partner.logo} 
+                                                    alt="Client" 
+                                                    className="partner-logo img-fluid" 
+                                                />
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                    {/* Duplicate slides to ensure seamless looping */}
+                                    {partnerships.map((partner, index) => (
+                                        <SwiperSlide key={`partner-duplicate-${partner.id}-${index}`}>
+                                            <div className="partner-slide">
+                                                <img 
+                                                    src={partner.logo} 
+                                                    alt="Client" 
+                                                    className="partner-logo img-fluid" 
+                                                />
+                                            </div>
+                                        </SwiperSlide>
                                     ))}
                                 </Swiper>   
                             </div>

@@ -30,5 +30,13 @@ export const partnerships = [
     {
         id: 8,
         logo: "/assets/images/client-4.png",
+    },
+     {
+        id: 9,
+        logo: "/assets/images/client-9.png",
+    },
+    {
+        id: 10,
+        logo: "/assets/images/client-10.png",
     }
 ];
