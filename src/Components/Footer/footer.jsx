@@ -59,7 +59,7 @@ const Footer = () => {
                                 <div className="footer-contact-container">
                                     <h5>Contact Info</h5>
                                     <ul className="contact-list">
-                                        <li>hello@markoagency.com</li>
+                                        <li>info@ingeniumhub.com</li>
                                         <li>+1 234 567 890</li>
                                         <li>123 Digital Street, New York, USA</li>
                                     </ul>

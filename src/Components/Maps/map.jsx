@@ -7,9 +7,9 @@ const MapsSection = () => {
             <iframe
             loading="lazy"
             className="maps overflow-hidden"
-            src="https://maps.google.com/maps?q=London%20Eye%2C%20London%2C%20United%20Kingdom&t=m&z=14&output=embed&iwloc=near"
-            title="London Eye, London, United Kingdom"
-            aria-label="London Eye, London, United Kingdom" 
+            src="https://www.google.com/maps?ll=5.612832,-0.203421&z=15&t=m&hl=en-US&gl=US&mapclient=embed&cid=15581004579820986434"
+            title="INGENIUM Office Location"
+            aria-label="INGENIUM Office Location" 
             ></iframe>
         </div>
     </div>
