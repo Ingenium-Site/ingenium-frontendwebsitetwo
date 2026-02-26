@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from "react";
-import { partnerships } from "../../Data/PartnershipData";
+// import { partnerships } from "../../Data/PartnershipData";
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from 'swiper';
@@ -34,7 +34,7 @@ const PartnershipSection = () => {
                             </div>
                         </div>
 
-                        <div className="swiperPartner-layout">
+                        {/* <div className="swiperPartner-layout">
                             <div className="swiperPartner-overlay">
                                 <div className="spacer"></div>
                             </div>
@@ -69,7 +69,8 @@ const PartnershipSection = () => {
                                             </div>
                                         </SwiperSlide>
                                     ))}
-                                    {/* Duplicate slides to ensure seamless looping */}
+                                    
+                
                                     {partnerships.map((partner, index) => (
                                         <SwiperSlide key={`partner-duplicate-${partner.id}-${index}`}>
                                             <div className="partner-slide">
@@ -83,7 +84,7 @@ const PartnershipSection = () => {
                                     ))}
                                 </Swiper>   
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </AnimateOnScroll>
             </div>

@@ -21,7 +21,7 @@ export default function ThemeSwitcher() {
                 localStorage.setItem('lightmode', 'active');
     
                 siteLogos.forEach((logo) => {
-                    logo.setAttribute('src', 'assets/images/ingenium-logo-dark.jpeg');
+                    logo.setAttribute('src', 'assets/images/ingenium-logo-dark.png');
                 });
     
                 partnerLogos.forEach((img) => {
@@ -35,7 +35,7 @@ export default function ThemeSwitcher() {
                 localStorage.removeItem('lightmode');
     
                 siteLogos.forEach((logo) => {
-                    logo.setAttribute('src', 'assets/images/ingenium-logo.jpeg');
+                    logo.setAttribute('src', 'assets/images/ingenium-logo.png');
                 });
     
                 partnerLogos.forEach((img) => {

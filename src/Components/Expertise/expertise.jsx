@@ -1,7 +1,8 @@
 import React from "react";
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 import CounterOnScroll from "../Hooks/CounterOnScroll";
-
+import { services } from "../../Data/ServiceData";
+import ServiceCard from "../Card/ServiceCard";
 function ExpertiseSection(){
 
     return(
@@ -11,14 +12,14 @@ function ExpertiseSection(){
                     <div className="d-flex flex-column flex-lg-row gspace-5">
                         <div className="expertise-img-layout">
                             <div className="image-container expertise-img">
-                                <AnimateOnScroll animation="fadeInUp" speed="normal">
+                                {/* <AnimateOnScroll animation="fadeInUp" speed="normal">
                                     <img
                                         src="/assets/images/dummy-img-600x400.jpg"
                                         alt="Expertise Image"
                                         className="img-fluid"
                                     />
-                                </AnimateOnScroll>
-                                <div className="expertise-layout">
+                                </AnimateOnScroll> */}
+                                {/* <div className="expertise-layout">
                                     <div className="d-flex flex-column">
                                         <div className="card-expertise-wrapper">
                                             <AnimateOnScroll animation="fadeInDown" speed="normal">
@@ -35,9 +36,11 @@ function ExpertiseSection(){
                                     <div className="expertise-spacer"></div>
                                         </div>
                                     <div className="expertise-spacer"></div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
+                      <div className="d-flex flex-column justify-content-center text-center gspace-5">
+                        <div className="d-flex flex-column justify-content-center text-center gspace-2"></div>    
                         <div className="expertise-title">
                             <AnimateOnScroll animation="fadeInRight" speed="normal">
                                 <div className="sub-heading">
@@ -46,15 +49,16 @@ function ExpertiseSection(){
                                 </div>
                             </AnimateOnScroll>
 
-                            <AnimateOnScroll animation="fadeInRight" speed="normal">
+                            {/* <AnimateOnScroll animation="fadeInRight" speed="normal">
                                 <h2 className="title-heading">
                                     Insight, intelligence, and invention
                                 </h2>
+                            </AnimateOnScroll> */}
+                            <AnimateOnScroll animation="fadeInDown" speed="normal">
+                                <h2 className="title-heading heading-container heading-container-medium">
+                                   Insight, intelligence, and invention
+                                </h2>
                             </AnimateOnScroll>
-                            <p>
-                                INGENIUM is where insight, intelligence, and invention converge. We deliver ingenuity with intent through deep insight,
-                                emerging technology, and strategic execution to create solutions that endure.
-                            </p>
                             <div className="d-flex flex-column flex-md-row gspace-2">
                                 <div className="expertise-list">
                                     <h5>What We Do Best</h5>
@@ -68,7 +72,7 @@ function ExpertiseSection(){
                                     </ul>
                                 </div>
 
-                                <AnimateOnScroll animation="fadeInUp">
+                                {/* <AnimateOnScroll animation="fadeInUp">
                                     <div className="card card-expertise card-expertise-counter animate-box">
                                         <div className="d-flex flex-row gspace-2 align-items-center">
                                             <div className="d-flex flex-row align-items-center">
@@ -85,11 +89,44 @@ function ExpertiseSection(){
                                             We build brands, systems, and outcomes with disciplined judgment—work evaluated by how well it performs in the real world.
                                         </p>
                                     </div>
-                                </AnimateOnScroll>
+                                </AnimateOnScroll> */}
                             </div>
                         </div>
                     </div>
+                      </div>
+                     <div className="d-flex flex-column justify-content-center text-center gspace-5">
+                        <div className="d-flex flex-column justify-content-center text-center gspace-2">
+            
+                            <AnimateOnScroll animation="fadeInDown" speed="normal">
+                                <h3 className="title-heading heading-container heading-container-medium">
+                                    Digital Solutions That Drive Real Results
+                                </h3>
+                            </AnimateOnScroll>
+                        </div>
+                        <div className="card-service-wrapper">
+                            <div className="row row-cols-lg-3 row-cols-md-2 row-cols-1 grid-spacer-2">
+                                {services.map((item) => (
+                                    <div className="col" key={item.id}>
+                                        <ServiceCard 
+                                            icon={item.icon}
+                                            title={item.title}
+                                            content={item.content}
+                                            speed={item.speed}
+                                            link={item.link}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="service-link-footer">
+                            <p>
+                                Need a custom solution? Let&apos;s create a strategy tailored for your business.
+                                <a href="./contact"> Get a Free Strategy Call</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
         </>

@@ -13,7 +13,7 @@ return (
                 <div className="logo-container">
                     <NavLink className="navbar-brand" to="/">
                     <img
-                        src="/assets/images/ingenium-logo.jpeg"
+                        src="/assets/images/ingenium-logo.png"
                         className="site-logo img-fluid"
                         alt="INGENIUM Logo"
                     />

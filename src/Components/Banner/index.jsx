@@ -1,229 +1,609 @@
-import React, { useEffect, useRef, useState } from "react";
-import VideoButton from "../Video/VideoButton";
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import AnimateOnScroll from "../Hooks/AnimateOnScroll";
 
-// Rotating "In" + suffix word morph with color changes and animated underline
-function InWordMorph({ intervalMs = 2000 }) {
-    const suffixes = ["sight", "genium", "fluence", "tegrity", "genium"];
-    const colors = ["#ff6b6b", "#4ecdc4", "#ffd166", "#6a0572", "#1a936f"]; // Different colors for each word
-    const [idx, setIdx] = useState(0);
+// Particles.js (UMD) attaches window.particlesJS
+import "particles.js";
 
-    useEffect(() => {
-        const t = setInterval(() => {
-            setIdx((prev) => (prev + 1) % suffixes.length);
-        }, intervalMs);
-        return () => clearInterval(t);
-    }, [intervalMs]);
+// Background image served from /public
+const bannerBg = "/assets/images/ingenium-banner-bg.png";
 
-    // Key forces re-mount so the keyframe animation restarts every swap
-    return (
-        <>
-            <span className="inword-morph" aria-live="polite" aria-atomic="true">
-                <span 
-                    key={idx} 
-                    className="inword-morph__word"
-                    style={{ color: colors[idx] }}
-                >
-                    {suffixes[idx]}
-                </span>
-                <span className="inword-morph__underline"></span>
-            </span>
+// Ingenium brand colors
+const BRAND = {
+  teal: "#00C2B8",
+  blue: "#00A3FF",
+  orange: "#F55A1F",
+  gold: "#C9A227",
+  dark: "#08080D",
+  white: "#FFFFFF",
+};
 
-            <style>{`
-                .inword-morph {
-                    display: inline-block;
-                    position: relative;
-                    vertical-align: baseline;
-                    line-height: 1;
+// ----------------------------
+// BIG BOLD WORDS (CENTER)
+// Animates in -> slams to center -> shakes -> slides out
+// ----------------------------
+function SlamWords({
+  words = ["INTEGRITY", "INFLUENCE", "INSIGHT", "INGENIUM"],
+  intervalMs = 2200,
+}) {
+  const [idx, setIdx] = useState(0);
+  const reduceMotion = useReducedMotion();
+
+  const accents = [BRAND.gold, BRAND.orange, BRAND.blue, BRAND.teal];
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((v) => (v + 1) % words.length), intervalMs);
+    return () => clearInterval(t);
+  }, [intervalMs, words.length]);
+
+  const word = words[idx] || "INGENIUM";
+  const accent = accents[idx % accents.length];
+
+  return (
+    <div className="slam" aria-hidden="true">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`${word}-${idx}`}
+          className="slam__word"
+          style={{
+            backgroundImage: `linear-gradient(90deg, ${accent}, rgba(255,255,255,0.92))`,
+            boxShadow: `0 0 0 1px ${accent}22 inset`,
+          }}
+          initial={
+            reduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  x: 120,
+                  y: 40,
+                  scale: 0.78,
+                  rotate: 6,
+                  filter: "blur(14px)",
                 }
-                .inword-morph__word {
-                    display: inline-block;
-                    will-change: transform, opacity, filter;
-                    animation: inwordFadeUp 520ms ease both;
+          }
+          animate={
+            reduceMotion
+              ? { opacity: 0.16 }
+              : {
+                  opacity: [0, 0.14, 0.16],
+                  x: [120, 0, -6, 6, -4, 4, 0],
+                  y: [40, 0, 2, -2, 2, -2, 0],
+                  rotate: [6, 0, -0.6, 0.6, -0.35, 0.35, 0],
+                  scale: [0.78, 1.02, 1.0],
+                  filter: ["blur(14px)", "blur(0px)", "blur(0px)"],
                 }
-                .inword-morph__underline {
-                    position: absolute;
-                    bottom: -5px;
-                    left: 0;
-                    width: 100%;
-                    height: 3px;
-                    background: linear-gradient(to right, transparent, #FF6B35, #FFA500, #FF6B35, transparent);
-                    border-radius: 50%;
-                    animation: curveLine 2s infinite alternate ease-in-out;
-                    content: "";
+          }
+          exit={
+            reduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  x: -160,
+                  y: -40,
+                  scale: 1.06,
+                  rotate: -6,
+                  filter: "blur(16px)",
                 }
-                @keyframes inwordFadeUp {
-                    from { opacity: 0; transform: translateY(6px); filter: blur(8px); }
-                    to   { opacity: 1; transform: translateY(0);   filter: blur(0); }
+          }
+          transition={{
+            duration: 1.05,
+            ease: [0.22, 1, 0.36, 1],
+            times: reduceMotion ? undefined : [0, 0.55, 1],
+          }}
+        >
+          {word}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ----------------------------
+// KINETIC WORDS (BOTTOM-RIGHT)
+// Separate in/out animations + brand color cycling
+// ----------------------------
+function KineticWords({
+  words = ["INSIGHT", "INFLUENCE", "INTEGRITY", "INGENIUM"],
+  intervalMs = 2400,
+}) {
+  const [idx, setIdx] = useState(0);
+  const reduceMotion = useReducedMotion();
+  const accents = [BRAND.teal, BRAND.blue, BRAND.orange, BRAND.gold];
+
+  useEffect(() => {
+    const t = setInterval(() => setIdx((v) => (v + 1) % words.length), intervalMs);
+    return () => clearInterval(t);
+  }, [intervalMs, words.length]);
+
+  const word = words[idx] || "INGENIUM";
+  const accent = accents[idx % accents.length];
+
+  return (
+    <div className="banner-kinetic banner-kinetic--br" aria-hidden="true">
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={`${word}-${idx}`}
+          className="banner-kinetic__word"
+          style={{
+            backgroundImage: `linear-gradient(90deg, ${accent}, rgba(255,255,255,0.92))`,
+            boxShadow: `0 0 0 1px ${accent}22 inset, 0 12px 48px rgba(0,0,0,0.35)`,
+          }}
+          initial={
+            reduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  x: 26,
+                  y: 16,
+                  scale: 0.92,
+                  rotate: 2,
+                  filter: "blur(14px)",
+                  clipPath: "inset(0 0 100% 0)",
                 }
-                @keyframes curveLine {
-                    0% { transform: translateY(0) scaleY(1); }
-                    50% { transform: translateY(-2px) scaleY(1.2); }
-                    100% { transform: translateY(0) scaleY(1); }
+          }
+          animate={
+            reduceMotion
+              ? { opacity: 0.95 }
+              : {
+                  opacity: 0.95,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                  rotate: 0,
+                  filter: "blur(0px)",
+                  clipPath: "inset(0 0 0% 0)",
                 }
-                @media (prefers-reduced-motion: reduce) {
-                    .inword-morph__word { animation: none; }
-                    .inword-morph__underline { animation: none; }
+          }
+          exit={
+            reduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  x: -10,
+                  y: -22,
+                  scale: 1.08,
+                  rotate: -2,
+                  filter: "blur(16px)",
+                  clipPath: "inset(100% 0 0 0)",
                 }
-            `}</style>
-        </>
-    );
+          }
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {word}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
 }
 
 function BannerHomeSection() {
-    const playerRef = useRef(null);
-    const videoContainerRef = useRef(null);
+  const reduceMotion = useReducedMotion();
 
-    useEffect(() => {
-        // Initialize YouTube player when API is ready
-        const initializeYouTubePlayer = () => {
-            playerRef.current = new window.YT.Player("banner-video-background", {
-                videoId: "P68V3iH4TeE",
-                playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    mute: 1,
-                    loop: 1,
-                    playlist: "P68V3iH4TeE",
-                    showinfo: 0,
-                    rel: 0,
-                    enablejsapi: 1,
-                    disablekb: 1,
-                    modestbranding: 1,
-                    iv_load_policy: 3,
-                    'origin': window.location.origin
-                },
-                events: {
-                    onReady: onPlayerReady,
-                    onStateChange: onPlayerStateChange
-                }
-            });
-        };
+  // Particles background (repulse)
+  useEffect(() => {
+    const initParticles = () => {
+      if (!window.particlesJS) return;
 
-        // Player ready callback
-        const onPlayerReady = (event) => {
-            event.target.playVideo();
-            setYoutubeSize();
-            window.addEventListener("resize", setYoutubeSize);
-        };
+      // Destroy existing instances (HMR / route changes)
+      try {
+        if (window.pJSDom && window.pJSDom.length) {
+          window.pJSDom.forEach((p) => p?.pJS?.fn?.vendors?.destroypJS?.());
+          window.pJSDom.length = 0;
+        }
+      } catch {}
 
-        // Player state change callback
-        const onPlayerStateChange = (event) => {
-            if (event.data === window.YT.PlayerState.ENDED) {
-                playerRef.current.playVideo();
-            }
-            if (event.data === window.YT.PlayerState.PLAYING) {
-                playerRef.current.setPlaybackQuality("hd1080");
-            }
-        };
+      window.particlesJS("particles-js", {
+        particles: {
+          number: { value: 86, density: { enable: true, value_area: 950 } },
+          color: { value: [BRAND.teal, BRAND.blue, BRAND.orange, BRAND.gold] },
+          shape: { type: "circle" },
+          opacity: { value: 0.42, random: true },
+          size: { value: 3, random: true },
+          line_linked: {
+            enable: true,
+            distance: 145,
+            color: BRAND.teal,
+            opacity: 0.16,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 1.25,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
+            resize: true,
+          },
+          modes: {
+            repulse: { distance: 170, duration: 0.45 },
+            push: { particles_nb: 3 },
+          },
+        },
+        retina_detect: true,
+      });
+    };
 
-        // Set YouTube video size based on container
-        const setYoutubeSize = () => {
-            const container = videoContainerRef.current;
-            if (!container || !playerRef.current?.getIframe) return;
+    const raf = requestAnimationFrame(initParticles);
 
-            const containerWidth = container.offsetWidth;
-            const containerHeight = container.offsetHeight;
-            const aspectRatio = 16 / 9;
+    return () => {
+      cancelAnimationFrame(raf);
+      try {
+        if (window.pJSDom && window.pJSDom.length) {
+          window.pJSDom.forEach((p) => p?.pJS?.fn?.vendors?.destroypJS?.());
+          window.pJSDom.length = 0;
+        }
+      } catch {}
+    };
+  }, []);
 
-            let newWidth, newHeight;
-            if (containerWidth / containerHeight > aspectRatio) {
-                newWidth = containerWidth;
-                newHeight = containerWidth / aspectRatio;
-            } else {
-                newWidth = containerHeight * aspectRatio;
-                newHeight = containerHeight;
-            }
+  return (
+    <section className="section-banner section-banner--xl">
+      <AnimateOnScroll animation="fadeInUp">
+        <div className="banner-hero keep-dark">
+          {/* Particles background */}
+          <div id="particles-js" className="banner-particles" aria-hidden="true" />
 
-            const iframe = playerRef.current.getIframe();
-            iframe.style.width = `${newWidth}px`;
-            iframe.style.height = `${newHeight}px`;
-        };
+          {/* Big slam words (center) */}
+          <SlamWords />
 
-        // Check if YouTube API is already available
-        if (window.YT && window.YT.Player) {
-            initializeYouTubePlayer();
-        } else {
-            // Load YouTube API script if not available
-            if (!window.YT) {
-                const tag = document.createElement("script");
-                tag.src = "https://www.youtube.com/iframe_api";
-                
-                const firstScriptTag = document.getElementsByTagName("script")[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            }
-            
-            // Define global callback function
-            window.onYouTubeIframeAPIReady = initializeYouTubePlayer;
+          {/* Overlay tint */}
+          <div className="banner-overlay" aria-hidden="true" />
+
+          {/* Content */}
+          <div className="hero-container">
+            <div className="hero-grid">
+              <div className="hero-copy">
+                <motion.div
+                  className="hero-chiprow"
+                  initial={reduceMotion ? false : { opacity: 0, y: 10, filter: "blur(8px)" }}
+                  animate={reduceMotion ? false : { opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <span className="chip chip--teal">Strategic</span>
+                  <span className="chip chip--blue">Creative</span>
+                  <span className="chip chip--orange">Digital</span>
+                </motion.div>
+
+                <motion.h1
+                  className="hero-title"
+                  initial={reduceMotion ? false : { opacity: 0, y: 18, filter: "blur(10px)" }}
+                  animate={reduceMotion ? false : { opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
+                >
+                  Build with <span className="hero-title__grad">Ingenium</span>
+                </motion.h1>
+
+                <motion.p
+                  className="hero-sub"
+                  initial={reduceMotion ? false : { opacity: 0, y: 14, filter: "blur(8px)" }}
+                  animate={reduceMotion ? false : { opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+                >
+                  Strategy, creative, and digital execution — engineered to move brands forward.
+                </motion.p>
+
+                <motion.div
+                  className="hero-actions"
+                  initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+                  animate={reduceMotion ? false : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.18 }}
+                >
+                  <a href="/contact" className="btn-ingenium btn-ingenium--primary">
+                    Let’s Talk
+                  </a>
+                  <a href="/services" className="btn-ingenium btn-ingenium--ghost">
+                    Explore Services
+                  </a>
+                </motion.div>
+              </div>
+
+              <motion.div
+                className="hero-right"
+                initial={reduceMotion ? false : { opacity: 0, x: 26, filter: "blur(10px)" }}
+                animate={reduceMotion ? false : { opacity: 1, x: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+              >
+                <div className="hero-card">
+                  <div className="hero-card__glow" aria-hidden="true" />
+                  <div className="hero-card__title">Ingenium Momentum</div>
+                  <div className="hero-card__text">
+                    Bold strategy + modern creative + measurable digital execution — in one team.
+                  </div>
+                  <div className="hero-card__bars">
+                    <span className="bar bar--teal" />
+                    <span className="bar bar--blue" />
+                    <span className="bar bar--orange" />
+                    <span className="bar bar--gold" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Bottom-right kinetic words */}
+          <KineticWords />
+        </div>
+      </AnimateOnScroll>
+
+      <style>{`
+        .banner-hero{
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          min-height: 100vh;
+          height: 100vh;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          background: ${BRAND.dark};
+          background-image: url(${bannerBg});
+          background-size: cover;
+          background-position: center;
         }
 
-        // Cleanup function
-        return () => {
-            window.removeEventListener("resize", setYoutubeSize);
-            if (playerRef.current) {
-                playerRef.current.destroy();
-            }
-        };
-    }, []); // Empty dependency array since we only want this to run once
+        /* Particles layer */
+        .banner-particles{
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: auto;
+        }
+        .banner-particles canvas{ pointer-events: none; }
 
-    return (
-        <div className="section-banner">
-            <AnimateOnScroll animation="fadeInUp">
-                <div
-                    ref={videoContainerRef}
-                    className="banner-video-container keep-dark"
-                >
-                    <div id="banner-video-background"></div>
-                    <div className="hero-container position-relative">
-                        <div className="d-flex flex-column gspace-2">
-                            <AnimateOnScroll animation="fadeInLeft" speed="normal">
-                                <h1 className="title-heading-banner">
-                                    Ingenuity with intent strategy and creative work that endures
-                                </h1>
-                            </AnimateOnScroll>
-                            <div className="banner-heading">
-                                <AnimateOnScroll animation="fadeInUp" speed="normal">
-                                    <div className="banner-video-content order-lg-1 order-2">
-                                        <div className="d-flex flex-column flex-lg-row text-lg-start text-center align-items-center gspace-5">
-                                            <VideoButton videoUrl="https://youtu.be/FlB2qzJM3lw?si=JTAnnWDx7ko59Q42?autoplay=1" />
-                                            <p>
-                                                See how insight becomes strategy—and strategy becomes durable execution.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </AnimateOnScroll>
+        /* Big slam words layer */
+        .slam{
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          display: grid;
+          place-items: center;
+          mix-blend-mode: screen;
+        }
+        .slam__word{
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.10em;
+          line-height: 1;
+          text-align: center;
+          font-size: clamp(70px, 12vw, 210px);
+          padding: 0 18px;
+          opacity: 0.16;
 
-                                <AnimateOnScroll animation="fadeInRight" speed="normal">
-                                    <div className="banner-content order-lg-2 order-1">
-                                        <p>
-                                            INGENIUM is a strategy and creative firm built on thinking that leads to
-                                            durable execution. We help organisations turn insight into strategy, and
-                                            strategy into work that holds up in the real world.
-                                        </p>
-                                        <div className="d-flex flex-md-row flex-column justify-content-center justify-content-lg-start align-self-center align-self-lg-start gspace-3">
-                                            <a href="./about" className="btn btn-accent">
-                                                <div className="btn-title">
-                                                    <span>Learn More</span>
-                                                </div>
-                                                <div className="icon-circle">
-                                                    <i className="fa-solid fa-arrow-right"></i>
-                                                </div>
-                                            </a>
-                                            <div className="banner-reviewer">
-                                            <div className="detail">
-                                                <h3 style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>In<span><InWordMorph /></span></h3>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </AnimateOnScroll>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-            </AnimateOnScroll>
-        </div>
-    );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+
+          text-shadow: 0 18px 80px rgba(0,0,0,0.55);
+          filter: drop-shadow(0 18px 60px rgba(0,0,0,0.35));
+        }
+
+        /* Overlay tint */
+        .banner-overlay{
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          pointer-events: none;
+          background:
+            radial-gradient(1100px 560px at 50% 20%, rgba(0,194,184,0.18), transparent 60%),
+            radial-gradient(900px 520px at 72% 65%, rgba(0,163,255,0.14), transparent 60%),
+            radial-gradient(900px 520px at 22% 70%, rgba(245,90,31,0.10), transparent 60%),
+            linear-gradient(to bottom, rgba(8,8,13,0.18), rgba(8,8,13,0.88));
+        }
+
+        /* Content */
+        .hero-container{
+          position: relative;
+          z-index: 4;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          padding: clamp(80px, 9vw, 140px) 0;
+        }
+
+        .hero-grid{
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 18px;
+          display: grid;
+          grid-template-columns: 1.25fr 0.75fr;
+          gap: clamp(18px, 3vw, 40px);
+          align-items: center;
+        }
+
+        .hero-chiprow{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 14px;
+        }
+
+        .chip{
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          padding: 8px 12px;
+          border-radius: 999px;
+          font-size: 12px;
+          backdrop-filter: blur(10px);
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.10);
+          color: #fff;
+        }
+        .chip--teal{ box-shadow: 0 0 0 1px rgba(0,194,184,0.18) inset; }
+        .chip--blue{ box-shadow: 0 0 0 1px rgba(0,163,255,0.18) inset; }
+        .chip--orange{ box-shadow: 0 0 0 1px rgba(245,90,31,0.18) inset; }
+
+        .hero-title{
+          font-weight: 900;
+          line-height: 1.02;
+          letter-spacing: -0.02em;
+          color: #fff;
+          font-size: clamp(44px, 5.4vw, 84px);
+          margin: 0 0 12px 0;
+          text-shadow: 0 18px 70px rgba(0,0,0,0.55);
+        }
+
+        .hero-title__grad{
+          background: linear-gradient(90deg, ${BRAND.teal}, ${BRAND.blue}, ${BRAND.orange});
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .hero-sub{
+          margin: 0;
+          max-width: 680px;
+          color: rgba(255,255,255,0.86);
+          font-weight: 600;
+          line-height: 1.6;
+          font-size: clamp(15px, 1.45vw, 18px);
+          text-shadow: 0 18px 70px rgba(0,0,0,0.35);
+        }
+
+        .hero-actions{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 18px;
+          align-items: center;
+        }
+
+        .btn-ingenium{
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          padding: 12px 18px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: rgba(255,255,255,0.06);
+          color: #fff;
+          text-decoration: none;
+          transition: transform .2s ease, background .2s ease, border-color .2s ease;
+          backdrop-filter: blur(12px);
+        }
+        .btn-ingenium:hover{
+          transform: translateY(-1px);
+          border-color: rgba(255,255,255,0.24);
+          background: rgba(255,255,255,0.09);
+        }
+        .btn-ingenium--primary{
+          border-color: rgba(0,194,184,0.35);
+          background: linear-gradient(90deg, rgba(0,194,184,0.22), rgba(0,163,255,0.16), rgba(245,90,31,0.14));
+          box-shadow: 0 18px 50px rgba(0,0,0,0.35);
+        }
+        .btn-ingenium--ghost{ border-color: rgba(255,255,255,0.12); }
+
+        /* Right card */
+        .hero-card{
+          position: relative;
+          border-radius: 22px;
+          border: 1px solid rgba(255,255,255,0.10);
+          background: rgba(8,8,13,0.35);
+          backdrop-filter: blur(14px);
+          padding: 18px 18px;
+          overflow: hidden;
+          box-shadow: 0 18px 70px rgba(0,0,0,0.45);
+        }
+        .hero-card__glow{
+          position: absolute;
+          inset: -80px;
+          background:
+            radial-gradient(300px 220px at 35% 35%, rgba(0,194,184,0.18), transparent 60%),
+            radial-gradient(300px 220px at 70% 60%, rgba(0,163,255,0.14), transparent 60%),
+            radial-gradient(300px 220px at 55% 75%, rgba(245,90,31,0.10), transparent 60%);
+          filter: blur(10px);
+          opacity: 0.95;
+          animation: glowPulse 5.8s ease-in-out infinite;
+          pointer-events: none;
+        }
+        @keyframes glowPulse{
+          0%{ transform: scale(1); opacity: .85; }
+          50%{ transform: scale(1.04); opacity: 1; }
+          100%{ transform: scale(1); opacity: .85; }
+        }
+
+        .hero-card__title{
+          position: relative;
+          z-index: 1;
+          font-weight: 900;
+          font-size: 18px;
+          letter-spacing: 0.02em;
+          color: #fff;
+        }
+        .hero-card__text{
+          position: relative;
+          z-index: 1;
+          margin-top: 8px;
+          color: rgba(255,255,255,0.85);
+          font-weight: 600;
+          line-height: 1.55;
+          font-size: 14px;
+        }
+
+        .hero-card__bars{
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 14px;
+        }
+        .bar{ height: 6px; border-radius: 999px; background: rgba(255,255,255,0.10); overflow: hidden; position: relative; }
+        .bar::after{ content:""; position:absolute; inset:0; transform: translateX(-40%); animation: slide 2.8s ease-in-out infinite; opacity: .9; }
+        @keyframes slide{ 0%{ transform: translateX(-50%); } 50%{ transform: translateX(0%); } 100%{ transform: translateX(-50%); } }
+        .bar--teal::after{ background: linear-gradient(90deg, transparent, ${BRAND.teal}, transparent); }
+        .bar--blue::after{ background: linear-gradient(90deg, transparent, ${BRAND.blue}, transparent); }
+        .bar--orange::after{ background: linear-gradient(90deg, transparent, ${BRAND.orange}, transparent); }
+        .bar--gold::after{ background: linear-gradient(90deg, transparent, ${BRAND.gold}, transparent); }
+
+        /* Bottom-right kinetic */
+        .banner-kinetic--br{
+          position: absolute;
+          right: clamp(16px, 3vw, 44px);
+          bottom: clamp(14px, 3vh, 42px);
+          z-index: 5;
+          pointer-events: none;
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+        .banner-kinetic__word{
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          line-height: 1;
+          text-align: right;
+          font-size: clamp(18px, 3vw, 44px);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          text-shadow: 0 18px 70px rgba(0,0,0,0.45);
+          padding: 8px 12px;
+          border-radius: 16px;
+          background-color: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 991px){
+          .hero-grid{ grid-template-columns: 1fr; }
+          .hero-right{ display:none; }
+          .slam__word{ font-size: clamp(56px, 14vw, 120px); letter-spacing: 0.08em; }
+          .banner-kinetic__word{ font-size: clamp(16px, 5vw, 28px); letter-spacing: 0.10em; }
+        }
+      `}</style>
+    </section>
+  );
 }
 
 export default BannerHomeSection;

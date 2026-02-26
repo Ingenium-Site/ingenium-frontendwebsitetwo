@@ -338,6 +338,11 @@ ul{
     width: 100%;
 }
 
+.banner-video-container .hero-container{
+    position: relative;
+    z-index: 5;
+}
+
 .section-banner{
     padding: 0px 30px 0px 30px;
 }
@@ -1091,6 +1096,55 @@ body.lightmode .keep-dark .btn-accent{
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
+}
+
+/* Flowmap canvas overlay (HeroFlowmap) */
+.banner-flowmap{
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.banner-flowmap canvas{
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* Kinetic background words (fade/blur/zoom) */
+.banner-kinetic{
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.banner-kinetic__word{
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: clamp(54px, 9vw, 140px);
+    line-height: 1;
+    color: rgba(255,255,255,0.10);
+    filter: blur(0px);
+    transform: translateY(0) scale(1);
+    animation: bannerKineticIn 1.05s ease both;
+}
+
+@keyframes bannerKineticIn{
+    0%   { opacity: 0; transform: translateY(14px) scale(0.92); filter: blur(10px); }
+    55%  { opacity: 0.14; transform: translateY(0px)  scale(1.02); filter: blur(2px); }
+    100% { opacity: 0.10; transform: translateY(0px)  scale(1.0);  filter: blur(0px); }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .banner-kinetic__word{ animation: none; }
 }
 
 .banner-video-content{
